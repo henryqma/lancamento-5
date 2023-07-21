@@ -1,0 +1,18 @@
+{% extends './base.html' %}
+{% block base %}
+
+<div class="header-bar">
+    <a href="{% url 'home' %}">&#8592; Voltar</a> 
+</div>
+
+<div class="card-body">
+
+    <form method="POST">
+        {% csrf_token %}
+        <p>Quer mesmo deletar? "{{tarefad}}"</p> 
+        <input type="submit" value="Delete">
+    </form>
+    
+</div>
+
+{% endblock base %}

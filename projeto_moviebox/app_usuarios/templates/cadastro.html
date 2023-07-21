@@ -1,0 +1,26 @@
+{% extends 'app_moviebox/base.html' %}
+{% block base %}
+
+<div class="header-bar">
+  <h1>Registro</h1> 
+</div>
+
+<div class="card-body">
+  <form method="POST">
+    {% csrf_token %}
+    <labe>{{form.username.label}}</label>
+    {{form.username}}
+    
+    <labe>{{form.password1.label}}</label>
+    {{form.password1}}
+    
+    <labe>{{form.password2.label}}</label>
+    {{form.password2}}
+      
+    <input style="margin-top:10px ;" class="button" type="submit" value="Registrar-se">
+  
+  </form>
+  <p>Já possui uma conta? <a href="{% url 'login' %}">Login</a> </p>
+</div>
+
+{% endblock base %}

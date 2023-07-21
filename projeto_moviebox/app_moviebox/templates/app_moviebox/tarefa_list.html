@@ -1,0 +1,58 @@
+{% extends './base.html' %}
+{% block base %}
+
+<div class="header-bar">
+    <div>
+        <h1>Bem-vindo {{request.user|title}}</h1>
+        <h3 style="margin:0">Você tem <i>{{contar}}</i> tarefa{{contar|pluralize:"s"}} pendente{{contar|pluralize:"s"}}.</h3>
+    </div>
+    {% if request.user.is_authenticated %}
+
+    <a href="{% url 'logout' %}">Logout</a>
+
+    {% else %}
+    <a href="{% url 'login' %}">Login</a> 
+
+    {% endif %}
+</div>
+
+<div id="search-add-wrapper">
+    <form method="GET" style="margin-top: 20px; display: flex;">
+        <input type="text" name='campo-busca' value="{{buscar}}">
+        <input class="button"type="submit" value='Buscar'>
+    </form>
+    <a id="add-link" href="{% url 'criar-tarefa' %}">&#x2b;</a>
+</div>
+
+<div class="task-items-wrapper">
+    {% for tarefa in tarefas %}
+
+        <div class="task-wrapper">
+
+            {% if tarefa.status %}
+
+                <div class="task-title">
+                    <div class="task-complete-icon"></div>
+                    <i><s><a href="{% url 'editar-tarefa' tarefa.id %}">{{tarefa}}</a> </s> </i>
+                </div>
+                <a class="delete-link" href="{% url 'deletar-tarefa' tarefa.id %}">&#215;&nbsp;</a>  
+            {% else %}
+
+                <div class="task-title">
+                    <div class="task-incomplete-icon"></div>
+                    <a href="{% url 'editar-tarefa' tarefa.id %}">{{tarefa}}</a>
+                </div>
+                <a class="delete-link" href="{% url 'deletar-tarefa' tarefa.id %}">&#215;&nbsp;</a>  
+            {% endif %}
+             
+
+        </div>
+    {% empty %}
+    <div style="text-align: center; padding-bottom: 10px; line-height: 1em;">
+        <h3>Nenhuma tarefa</h3>
+    </div>
+    {% endfor %}
+
+</div>
+
+{% endblock base %}
